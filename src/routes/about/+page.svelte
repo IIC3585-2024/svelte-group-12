@@ -1,26 +1,63 @@
+<script>
+	import img_rapanui from '$lib/images/rapanui.jpg';
+</script>
+
 <svelte:head>
 	<title>About</title>
 	<meta name="description" content="About this app" />
 </svelte:head>
 
-<div class="text-column">
-	<h1>About this app</h1>
-
-	<p>
-		This is a <a href="https://kit.svelte.dev">SvelteKit</a> app. You can make your own by typing the
-		following into your command line and following the prompts:
-	</p>
-
-	<pre>npm create svelte@latest</pre>
-
-	<p>
-		The page you're looking at is purely static HTML, with no client-side interactivity needed.
-		Because of that, we don't need to load any JavaScript. Try viewing the page's source, or opening
-		the devtools network panel and reloading.
-	</p>
-
-	<p>
-		The <a href="/sverdle">Sverdle</a> page illustrates SvelteKit's data loading and form handling. Try
-		using it with JavaScript disabled!
-	</p>
+<div class="container">
+	<div class="text-column">
+		<img class="background" src={img_rapanui} alt="Nature" />
+		<h1 class="mision-title">Nuestra misión</h1>
+		<p class="mision-description">
+			OutdoorLife lo que busca es inspirar y facilitar la exploración de la naturaleza,
+			ofreciendo a los usuarios panoramas completos de actividades al aire libre,
+			recomendaciones de lugares, mapas detallados, consejos de seguridad y
+			orientación sobre el equipamiento necesario. Con OutdoorLife,
+			los amantes de la aventura pueden descubrir nuevos destinos,
+			planificar sus excursiones de manera segura y equipada,
+			y vivir experiencias enriquecedoras al aire libre.
+		</p>
+	</div>
 </div>
+
+<style>
+	.container {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		height: 100%;
+		background-color: rgba(0, 0, 0, 0.5);
+	}
+	.text-column {
+		flex: 1;
+		display: flex;
+		height: 100%;
+		color: white;
+		width: 70%;
+		justify-content: center;
+		align-items: left;
+		flex-direction: column;
+  }
+	.background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+		height: 100%;
+    object-fit: cover;
+    z-index: -1;
+  }
+	.mision-title {
+		font-size: 4em;
+	}
+	.mision-description {
+		font-size: 1em;
+		width: 80%;
+		text-align: justify;
+	}
+</style>
