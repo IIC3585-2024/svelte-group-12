@@ -1,4 +1,5 @@
 <script>
+	import { fly } from 'svelte/transition';
 	import img_rapanui from '$lib/images/rapanui.jpg';
 </script>
 
@@ -7,19 +8,21 @@
 	<meta name="description" content="About this app" />
 </svelte:head>
 
-<div class="container">
-	<div class="text-column">
+<div class="main-container">
+	<div class="container">
 		<img class="background" src={img_rapanui} alt="Nature" />
-		<h1 class="mision-title">Nuestra misión</h1>
-		<p class="mision-description">
-			OutdoorLife lo que busca es inspirar y facilitar la exploración de la naturaleza,
-			ofreciendo a los usuarios panoramas completos de actividades al aire libre,
-			recomendaciones de lugares, mapas detallados, consejos de seguridad y
-			orientación sobre el equipamiento necesario. Con OutdoorLife,
-			los amantes de la aventura pueden descubrir nuevos destinos,
-			planificar sus excursiones de manera segura y equipada,
-			y vivir experiencias enriquecedoras al aire libre.
-		</p>
+		<div class="text-column" in:fly="{{ x: 200, duration: 1000 }}">
+			<h1 class="mision-title">Nuestra misión</h1>
+			<p class="mision-description">
+				OutdoorLife lo que busca es inspirar y facilitar la exploración de la naturaleza,
+				ofreciendo a los usuarios panoramas completos de actividades al aire libre,
+				recomendaciones de lugares, mapas detallados, consejos de seguridad y
+				orientación sobre el equipamiento necesario. Con OutdoorLife,
+				los amantes de la aventura pueden descubrir nuevos destinos,
+				planificar sus excursiones de manera segura y equipada,
+				y vivir experiencias enriquecedoras al aire libre.
+			</p>
+		</div>
 	</div>
 </div>
 
