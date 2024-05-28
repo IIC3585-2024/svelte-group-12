@@ -7,7 +7,7 @@
 	const santiago = {
 		image: img_santiago,
 		city: "Santiago",
-		location: "Costanera Center"
+		location: "Parque Metropolitano"
 	};
 
 	const puerto_varas = {

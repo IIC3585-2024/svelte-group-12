@@ -11,8 +11,8 @@
 			<li aria-current={$page.url.pathname === '/about' ? 'page' : undefined}>
 				<a href="/about">About</a>
 			</li>
-			<li aria-current={$page.url.pathname.startsWith('/forum') ? 'page' : undefined}>
-				<a href="/forum">Forum</a>
+			<li aria-current={$page.url.pathname.startsWith('/topics') ? 'page' : undefined}>
+				<a href="/topics">Topics</a>
 			</li>
 		</ul>
 	</div>
@@ -20,7 +20,11 @@
 
 <style>
 	footer {
+		position: fixed;
+		left: 0;
+		bottom: 0;
 		display: flex;
+		width: 100%;
 		justify-content: center;
 		background-color: rgb(231, 231, 231);
 	}

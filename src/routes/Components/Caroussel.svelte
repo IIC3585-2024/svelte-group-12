@@ -34,7 +34,7 @@
 <div class="slider">
   {#each slides as slide, i}
     {#if currentSlide === i}
-    <a href={`/destinations/${slide.city}`}>
+    <a href={`/cities/${slide.city}`}>
       <div class="slide" transition:blur={{ amount: 2 }}>
           <img class="background" src={slide.image} alt={`Slide ${i + 1}`} />
           <div class="slide-info">
@@ -67,7 +67,7 @@
 <style>
   .slider {
     width: 100%;
-    height: calc(100vh - 98px);
+    height: 95vh;
     position: relative;
   }
   .slide {
