@@ -39,9 +39,9 @@
 
 <div class="main-container">
   <h1 class="mb-10 pl-10">{city.name}</h1>
-  <div class="main-info flex flex-col md:flex-row ">
-    <div class="city-info md:w-auto w-full">
-      <div class="city-description" in:fly={{ duration:1000, y:100 }}>
+  <div class="main-info flex flex-col md:flex-row">
+    <div class="city-info md:w-auto w-full px-5" in:fly={{ duration:1000, y:100 }}>
+      <div class="city-description">
         <h1 class="text-xl w-full flex-grow">Lo más buscado</h1>
         <div class="space-y-6 border-l-2 border-dashed">
           {#each main_events as event}
@@ -113,7 +113,7 @@
   .video {
     display: flex;
     justify-content: center;
-    margin: 4% 0;
+    margin-bottom: 15%;
   }
   iframe {
     height: calc(9/16 * 70vw);
@@ -167,12 +167,15 @@
     height: 100%;
   }
   @media (min-width: 768px) {
-  .city-info {
-    width: 50%;
+    .city-info {
+      width: 50%;
+    }
+    .hot-trends {
+      width: 50%;
+      margin: 0;
+    }
+    .video {
+      margin: 4% 0;
+    }
   }
-  .hot-trends {
-    width: 50%;
-    margin: 0;
-  }
-}
 </style>
