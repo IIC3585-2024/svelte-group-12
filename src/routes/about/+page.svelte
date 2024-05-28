@@ -12,7 +12,7 @@
 	<div class="container">
 		<img class="background" src={img_rapanui} alt="Nature" />
 		<div class="text-column" in:fly="{{ x: 100, duration: 1000 }}">
-			<h1 class="mision-title">Nuestra misión</h1>
+			<h1 class="mision-title">Sobre nosotros</h1>
 			<p class="mision-description">
 				OutdoorLife lo que busca es inspirar y facilitar la exploración de la naturaleza,
 				ofreciendo a los usuarios panoramas completos de actividades al aire libre,

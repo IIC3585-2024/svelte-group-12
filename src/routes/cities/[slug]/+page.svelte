@@ -20,6 +20,7 @@
 
   const city = {
     name: 'Santiago',
+    country: 'Chile',
     description: 'Descripción del lugar'
   };
 
@@ -44,7 +45,7 @@
         <h1 class="text-xl w-full flex-grow">Lo más buscado</h1>
         <div class="space-y-6 border-l-2 border-dashed">
           {#each main_events as event}
-            <div class="relative w-full">
+            <div class="relative w-full pr-8 hover:bg-gray-100">
               <div class="ml-6">
                 <h4 class="font-bold text-blue-500">{event.name}</h4>
                 <p class="mt-2 max-w-screen-sm text-sm text-gray-500">{event.description}</p>
@@ -65,7 +66,7 @@
         <h1 class="text-xl w-full flex-grow">Lo más buscado</h1>
         <div class="space-y-6 border-l-2 border-dashed">
           {#each hot_events as event}
-            <div class="relative w-full">
+            <div class="relative w-full hover:bg-gray-100">
               <div class="ml-6">
                 <h4 class="font-bold text-green-500">{event.name}</h4>
                 <p class="mt-2 max-w-screen-sm text-sm text-gray-500">{event.description}</p>
@@ -81,7 +82,7 @@
         <h1 class="text-xl w-full flex-grow">Lo último</h1>
         <div class="space-y-6 border-l-2 border-dashed">
           {#each main_events as event}
-            <div class="relative w-full">
+            <div class="relative w-full hover:bg-gray-100">
               <div class="ml-6">
                 <h4 class="font-bold text-green-500">{event.name}</h4>
                 <p class="mt-2 max-w-screen-sm text-sm text-gray-500">{event.description}</p>
@@ -93,11 +94,31 @@
           {/each}
         </div>
       </div>
-    </div>
+  </div>
+  </div>
+  <div class="video" in:fly={{ x:100, delay:1000, duration:2000 }}>
+    <iframe 
+      class="shadow-lg rounded-lg" 
+      src="https://www.youtube.com/embed/4ppmoxk2HT4" 
+      title="The Best Way to Play 1.20.1" 
+      frameborder="0" 
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+      referrerpolicy="strict-origin-when-cross-origin" 
+      allowfullscreen>
+    </iframe>
   </div>
 </div>
 
 <style>
+  .video {
+    display: flex;
+    justify-content: center;
+    margin: 4% 0;
+  }
+  iframe {
+    height: calc(9/16 * 70vw);
+    width: 70vw;
+  }
   .main-container {
     display: flex;
     flex-direction: column;
