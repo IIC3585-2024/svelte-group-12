@@ -21,6 +21,8 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@maptiler/sdk": "^2.0.3",
+		"@material-tailwind/html": "^2.2.2",
 		"autoprefixer": "^10.4.19",
 		"postcss": "^8.4.38",
 		"postcss-load-config": "^5.1.0",

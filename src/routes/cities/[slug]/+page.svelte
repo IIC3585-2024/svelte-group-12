@@ -15,6 +15,11 @@
   }
 </script> -->
 
+<svelte:head>
+	<title>Cities</title>
+	<meta name="description" content="Cities" />
+</svelte:head>
+
 <script>
   import { fly } from 'svelte/transition';
 
@@ -40,20 +45,22 @@
 <div class="main-container">
   <h1 class="mb-10 pl-10">{city.name}</h1>
   <div class="main-info flex flex-col md:flex-row">
-    <div class="city-info md:w-auto w-full px-5" in:fly={{ duration:1000, y:100 }}>
+    <div class="city-info md:w-auto w-full p-5" in:fly={{ duration:1000, y:100 }}>
       <div class="city-description">
         <h1 class="text-xl w-full flex-grow">Lo más buscado</h1>
         <div class="space-y-6 border-l-2 border-dashed">
           {#each main_events as event}
-            <div class="relative w-full pr-8 hover:bg-gray-100">
-              <div class="ml-6">
-                <h4 class="font-bold text-blue-500">{event.name}</h4>
-                <p class="mt-2 max-w-screen-sm text-sm text-gray-500">{event.description}</p>
-                <span class="inline-flex items-center mt-2 px-3 py-2 rounded-full text-xs bg-blue-100 text-blue-400">
-                  {event.sector}
-                </span>
+            <a href="/events/{event.name}">
+              <div class="relative w-full pr-8 pb-3 hover:bg-gray-100">
+                <div class="ml-6">
+                  <h4 class="font-bold text-blue-500">{event.name}</h4>
+                  <p class="mt-2 max-w-screen-sm text-sm text-gray-500">{event.description}</p>
+                  <span class="inline-flex items-center mt-2 px-3 py-2 rounded-full text-xs bg-blue-100 text-blue-400">
+                    {event.sector}
+                  </span>
+                </div>
               </div>
-            </div>
+            </a>
           {/each}
         </div>
       </div>
@@ -63,7 +70,7 @@
     </div>
     <div class="hot-trends w-full md:w-auto">
       <div class="hot-events" in:fly={{ delay:500, duration:1000, y:100 }}>
-        <h1 class="text-xl w-full flex-grow">Lo más buscado</h1>
+        <h1 class="text-xl w-full">Lo más buscado</h1>
         <div class="space-y-6 border-l-2 border-dashed">
           {#each hot_events as event}
             <div class="relative w-full hover:bg-gray-100">
@@ -79,7 +86,7 @@
         </div>
       </div>
       <div class="late-events" in:fly={{ delay:1000, duration:1000, y:100 }}>
-        <h1 class="text-xl w-full flex-grow">Lo último</h1>
+        <h1 class="text-xl w-full">Lo último</h1>
         <div class="space-y-6 border-l-2 border-dashed">
           {#each main_events as event}
             <div class="relative w-full hover:bg-gray-100">

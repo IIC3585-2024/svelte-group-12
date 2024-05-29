@@ -1,3 +1,8 @@
+<svelte:head>
+	<title>Home</title>
+	<meta name="description" content="Home" />
+</svelte:head>
+
 <script>
 	import img_santiago from '$lib/images/santiago.jpg';
 	import img_puerto_varas from '$lib/images/puerto_varas.jpg';
