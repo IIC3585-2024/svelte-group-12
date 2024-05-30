@@ -19,7 +19,7 @@
 // @ts-nocheck
   import Map from '$lib/Map.svelte'; 
   import { calculateRatingFromReviews, ratingCategory } from '/src/utilities/ratings.js';
-  import { fly, scale } from 'svelte/transition';
+  import { fly, fade } from 'svelte/transition';
   import { flip } from 'svelte/animate';
   import { quintOut } from 'svelte/easing';
   import { writable } from 'svelte/store';
@@ -39,7 +39,11 @@
   const event = {
     name: 'Cerro Metropolitano',
     city: 'Santiago',
-    sector: 'Providencia'
+    sector: 'Providencia',
+    address: 'Pio Nono 450, Recoleta, Santiago, Chile',
+    phone: '+56 2 2733 3000',
+    email: 'info@parquemet.cl',
+    additional: 'Metro Pedro de Valdivia, L1'
   };
   
   const indicators = [
@@ -77,27 +81,21 @@
   
   const comments = [
     {
-      name: 'Tania Andrew',
-      role: 'Lead Frontend Developer',
-      message: 'This is an excellent product, \
-      the documentation is excellent and helped\
-      me get things done more efficiently.',
+      name: 'Benjamín Vásquez',
+      role: 'Estudiante UC',
+      message: '¡Muy bueno, recomendado!',
       rating: 5
     },
     {
-      name: 'Tania Andrew',
-      role: 'Lead Frontend Developer',
-      message: 'This is an excellent product, \
-      the documentation is excellent and helped\
-      me get things done more efficiently.',
+      name: 'Sebastián Cavagnaro',
+      role: 'Estudiante UC',
+      message: '¡Excelente lugar para visitar!',
       rating: 5
     },
     {
-      name: 'Tania Andrew',
-      role: 'Lead Frontend Developer',
-      message: 'This is an excellent product, \
-      the documentation is excellent and helped\
-      me get things done more efficiently.',
+      name: 'Cristóbal Pérez-Cotapos',
+      role: 'Estudiante UC',
+      message: '¡Muy buen lugar para visitar!',
       rating: 5
     }
   ];
@@ -181,12 +179,24 @@
       </div>
     </div>
   </div>
-  <div class="flex w-full justify-center">
+  <div class="flex w-full justify-center py-10" in:fade={{ duration: 1000 }}>
+    <div class="map-info">
+      <div class="map-title">
+        <h1>¿Cómo llegar al lugar?</h1>
+        <p>te tenemos algunos datos</p>
+      </div>
+      <div class="map-description">
+        <p>{event.address}</p>
+        <p>{event.phone}</p>
+        <p>{event.email}</p>
+        <p>{event.additional}</p>
+      </div>
+    </div>
     <Map lng={-70.633156} lat={-33.424427} zoom={14}/>
   </div>
   <div class="flex w-full mb-20" in:fly={{ x:-100, delay:1000, duration: 1000 }}>
     {#each comments as comment}
-      <div class="flex flex-col items-center px-8 text-center">
+      <div class="flex flex-col w-full items-center px-8 text-center">
         <h2 class="w-1/2 mb-6 block font-sans text-xl sm:text-xs font-small leading-[1.3] tracking-normal text-blue-gray-900 antialiased">
           "{comment.message}"
         </h2>
@@ -286,10 +296,31 @@
     border-radius: 5px;
     margin: 5px 0;
   }
+  .map-info {
+		padding: 40px 0;
+		width: 100%;
+    border-top: gray 2px dashed;
+    border-bottom: gray 2px dashed;
+	}
+	.map-title {
+    display: flex;
+		flex-direction: column;
+    align-items: center;
+		padding: 20px;
+		width: 100%;
+  }
+  .map-description {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 10% 0;
+    width: 100%;
+  }
   @media (min-width: 768px) {
     .main-info {
       flex-direction: row;
-      margin: 2% 0 4% 0;
+      margin: 1% 0;
       width: 100%;
     }
     .indicators {

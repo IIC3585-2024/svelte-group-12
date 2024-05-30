@@ -27,8 +27,10 @@
 </div>
 
 <style>
+	.main-container {
+		height: 100vh;
+	}
 	.container {
-		flex: 1;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -56,10 +58,10 @@
     z-index: -1;
   }
 	.mision-title {
-		font-size: 4em;
+		font-size: 5em;
 	}
 	.mision-description {
-		font-size: 1em;
+		font-size: 1.5em;
 		width: 80%;
 		text-align: justify;
 	}

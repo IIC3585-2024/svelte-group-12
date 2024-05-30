@@ -7,6 +7,7 @@
 	import img_santiago from '$lib/images/santiago.jpg';
 	import img_puerto_varas from '$lib/images/puerto_varas.jpg';
 	import img_valparaiso from '$lib/images/valparaiso.jpg';
+	import img_siete_tazas from '$lib/images/siete_tazas.jpg';
 	import Caroussel from "./Components/Caroussel.svelte";
 
 	const santiago = {
@@ -26,24 +27,17 @@
 		city: "Valparaíso",
 		location: "Cerro Alegre"
 	};
+
+	const curico = {
+		image: img_siete_tazas,
+		city: "Curicó",
+		location: "Siete Tazas"
+	}
 </script>
 
-<div>
-	<Caroussel duration={5000} slides={[
-		santiago,
-		puerto_varas,
-		valparaiso
-	]}/>
-</div>
-
-<style>
-  div {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    position: relative;
-  }
-</style>
+<Caroussel duration={5000} slides={[
+	santiago,
+	puerto_varas,
+	valparaiso,
+	curico
+]}/>

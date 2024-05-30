@@ -68,3 +68,8 @@ button:focus:not(:focus-visible) {
 	width: 1px;
 	white-space: nowrap;
 }
+
+.horizontal-line {
+	border-top: 1px solid #000;
+	width: 50%;
+}

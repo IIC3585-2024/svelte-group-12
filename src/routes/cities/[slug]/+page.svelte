@@ -106,8 +106,8 @@
   <div class="video" in:fly={{ x:100, delay:1000, duration:2000 }}>
     <iframe 
       class="shadow-lg rounded-lg" 
-      src="https://www.youtube.com/embed/4ppmoxk2HT4" 
-      title="The Best Way to Play 1.20.1" 
+      src="https://www.youtube.com/embed/0u9niyR-aQ0" 
+      title="Top 5 parques de Santiago" 
       frameborder="0" 
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
       referrerpolicy="strict-origin-when-cross-origin" 
