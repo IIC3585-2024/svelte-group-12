@@ -24,7 +24,6 @@
   import { quintOut } from 'svelte/easing';
   import { writable } from 'svelte/store';
   
-
   function toggleDescription(id) {
     openDescriptions.update(openDescs => {
       if (openDescs.has(id)) {
@@ -202,7 +201,7 @@
         </h2>
         <img
           src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=2940&amp;q=80"
-          alt="image"
+          alt="profile_image"
           class="relative inline-block h-10 w-10 rounded-full object-cover object-center "
         />
         <h6 class="block mt-4 font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit">
