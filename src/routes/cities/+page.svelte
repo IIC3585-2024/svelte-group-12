@@ -4,9 +4,15 @@
 
   let isFocused = false;
   let searchValue = '';
+  let options = ['Santiago', 'Curico', 'Valparaiso', 'Puerto Varas']; // Tus opciones precargadas
 
   function handleSubmit() {
     goto(`/cities/${searchValue}`);
+  }
+
+  function matchesSearchValue(option) {
+    const regex = new RegExp(searchValue, 'ig'); // Crea una regex a partir de searchValue
+    return regex.test(option); // Prueba si la opción coincide con la regex
   }
 </script>
 
@@ -32,6 +38,15 @@
         </svg>
       </button>
     </form>
+    <ul class="list-group">
+      {#each options as option (option)}
+        {#if matchesSearchValue(option) && searchValue !== option && searchValue !== ''}
+          <li>
+            <button class="list-group-item" value={option} on:click={() => searchValue = option} on:keydown={(event) => {if (event.key === 'Enter') searchValue = option;}}>{option}</button>
+          </li>  
+        {/if}
+      {/each}
+    </ul>
   </div>
 </div>
 
@@ -56,6 +71,19 @@
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1;
+  }
+  .list-group {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 10px;
+    background-color: rgb(238, 238, 238);
+    border-radius: 10px; 
+    z-index: 2;
+  }
+  .list-group-item {
+    padding: 10px;
+    cursor: pointer;
   }
   .dim {
     opacity: 0.5;
