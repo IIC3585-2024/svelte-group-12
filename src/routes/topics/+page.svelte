@@ -30,7 +30,7 @@
 	</div>
 	<div class="grid">
 		{#each images as image, i}
-			<a href={`/blogs`}>
+			<a href={`/cities`}>
 				<div role="button" tabindex="0" class="relative rounded overflow-hidden shadow-lg" style="max-width: 12em; max-height: 13em"
 					on:mouseenter={() => $isHovered[i] = true} 
 					on:focus={() => $isHovered[i] = true}
@@ -52,10 +52,6 @@
 </div>
 
 <style>
-	.horizontal-line {
-    border-top: 1px solid #000;
-    width: 50%;
-  }
 	.topics-description {
 		display: flex;
 		align-items: center;

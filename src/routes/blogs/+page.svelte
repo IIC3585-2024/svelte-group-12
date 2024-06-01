@@ -15,6 +15,11 @@
   }
 </script> -->
 
+<svelte:head>
+	<title>Blogs</title>
+	<meta name="description" content="Blogs" />
+</svelte:head>
+
 <script>
   import { fade, fly } from 'svelte/transition'
   
@@ -101,12 +106,13 @@
   .blogs-container {
     display: flex;
     flex-direction: column;
+    margin-bottom: 40px;
     width: 100%;
     height: 100%;
   }
   .blogs-title {
     display: flex;
     flex-direction: column;
-    margin: 40px 0 40px 60px;
+    margin: 20px 0 20px 60px;
   }
 </style>
