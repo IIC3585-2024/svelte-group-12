@@ -7,8 +7,8 @@
   let isFocused = false;
   let searchValue = '';
   let newCity = '';
-  let options = writable(['Santiago', 'Curico', 'Valparaiso', 'Puerto Varas']); // Tus opciones precargadas
-  
+  let options = writable([]); // Almacenará un arreglo de objetos { id, name }
+
   const fetchCities = async () => {
     try {
       const response = await fetch(`http://52.2.71.125:8000/cities/`);
@@ -18,7 +18,7 @@
       const cityData = await response.json();
       console.log(cityData); // Verificar la estructura de los datos
       if (Array.isArray(cityData)) {
-        options.set(cityData.map((city) => city.name));
+        options.set(cityData);
       } else {
         throw new Error('City data is not an array');
       }
@@ -32,12 +32,15 @@
   });
 
   function handleSubmit() {
-    goto(`/cities/${searchValue}`);
+    const city = $options.find(city => city.name.toLowerCase() === searchValue.toLowerCase());
+    if (city) {
+      goto(`/cities/${city.id}`);
+    }
   }
 
   function matchesSearchValue(option) {
     const regex = new RegExp(searchValue, 'ig'); // Crea una regex a partir de searchValue
-    return regex.test(option); // Prueba si la opción coincide con la regex
+    return regex.test(option.name); // Prueba si la opción coincide con la regex
   }
 
   async function addCity() {
@@ -48,16 +51,15 @@
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ name: newCity,
-                                 image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Cerro_Renca%2C_Santiago.jpg/275px-Cerro_Renca%2C_Santiago.jpg'
-           })
+          body: JSON.stringify({ name: newCity, image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Cerro_Renca%2C_Santiago.jpg/275px-Cerro_Renca%2C_Santiago.jpg' })
         });
 
         if (!response.ok) {
           throw new Error('Failed to add city');
         }
 
-        options.update(cities => [...cities, newCity]);
+        const addedCity = await response.json();
+        options.update(cities => [...cities, addedCity]);
         newCity = ''; // Limpiar la variable después de agregar la ciudad
       } catch (error) {
         console.error(error);
@@ -88,10 +90,10 @@
       </button>
     </form>
     <ul class="list-group">
-      {#each $options as option (option)}
-        {#if matchesSearchValue(option) && searchValue !== option && searchValue !== ''}
+      {#each $options as option (option.id)}
+        {#if matchesSearchValue(option) && searchValue !== option.name && searchValue !== ''}
           <li>
-            <button class="list-group-item" value={option} on:click={() => searchValue = option} on:keydown={(event) => {if (event.key === 'Enter') searchValue = option;}}>{option}</button>
+            <button class="list-group-item" value={option.name} on:click={() => searchValue = option.name} on:keydown={(event) => {if (event.key === 'Enter') searchValue = option.name;}}>{option.name}</button>
           </li>  
         {/if}
       {/each}
