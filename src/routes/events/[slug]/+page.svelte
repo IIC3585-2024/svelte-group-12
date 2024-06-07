@@ -113,14 +113,6 @@
         <h1>{$event.name}</h1>
         <p>{$event.sector}</p>
       </div>
-      <div class="flex items-center mb-5 px-10">
-        <p class="bg-blue-100 text-blue-800 text-sm font-semibold inline-flex items-center p-3 rounded dark:bg-blue-200 dark:text-blue-800">
-          {calculateRatingFromReviews($indicators)}
-        </p>
-        <p class="ml-3 font-medium text-gray-900 dark:text-white">
-          {ratingCategory(calculateRatingFromReviews($indicators))}
-        </p>
-      </div>
       {#each $indicators as indicator}
         <div class="flex items-center pl-10" in:fly={{ x:100, duration: 1000 }}>
           <h2>{indicator.name}</h2>
@@ -181,7 +173,7 @@
       </div>
     </div>
   </div>
-  <div class="flex w-full justify-center py-10" in:fade={{ duration: 1000 }}>
+  <div class="Map_and_info_container" in:fade={{ duration: 1000 }}>
     <div class="map-info">
       <div class="map-title">
         <h1>¿Cómo llegar al lugar?</h1>
@@ -194,7 +186,7 @@
         <p>Descripción del Evento: {$event.additional_info}</p>
       </div>
     </div>
-    <Map lng={$event.lng} lat={$event.lat} zoom={14} />
+    <Map lng={-70.633156} lat={-33.424427} zoom={14}/>
   </div>
   <div class="comments-container mt-10">
     <h2 class="p-4">Comentarios</h2>
@@ -310,6 +302,12 @@
   .form-group {
     margin-bottom: 15px;
   }
+  .Map_and_info_container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+  }
   textarea {
     width: 100%;
     height: 100px;
@@ -324,7 +322,7 @@
     border-radius: 5px;
   }
   button {
-    padding: 10px 20px;
+    padding: 25px 30px;
     background-color: #007bff;
     border: none;
     color: white;
