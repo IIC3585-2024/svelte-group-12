@@ -26,7 +26,7 @@ npm run build
 ## Consideraciones
 
 - La aplicación se centro principalmente en las componentes visuales, es expositiva, pero cuenta con una
-API externa creada por nosotros de la cual se alimenta para servir la gran parte de la información.
+[API externa](http://52.2.71.125:8000/docs) creada por nosotros en FASTAPI de la cual se alimenta para servir la gran parte de la información.
 - El Navbar cuenta con tres links, uno para el Home, otro para la sección de "about", y por último un menú de categorías.
 - El mapa al interior de la vista de evento, es interactivo, y muestra la ubicación del evento en cuestión. Pero nos faltó
 incluir dentro de los datos de la API la latitud y longitud de los eventos, por lo que no se muestra otro lugar que no sea
