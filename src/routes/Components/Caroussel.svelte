@@ -1,5 +1,6 @@
 <script>
 // @ts-nocheck
+// Fuente: https://freefrontend.com/css-carousels/
   import { blur } from "svelte/transition";
   export let duration;
   export let slides;

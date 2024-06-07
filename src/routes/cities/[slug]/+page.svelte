@@ -1,5 +1,5 @@
 <script>
-  import { goto } from '$app/navigation';
+  //@ts-nocheck
   import { fly } from 'svelte/transition';
   import { onMount } from 'svelte';
   import { writable } from 'svelte/store';
@@ -7,8 +7,27 @@
   export let city = {};
   export let hotEvents = writable([]);
 
+  const getCityIdByName = async (cityName) => {
+    try {
+      const response = await fetch(`http://52.2.71.125:8000/cities?name=${cityName}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch city data');
+      }
+      const cities = await response.json();
+      if (cities.length === 0) {
+        throw new Error('City not found');
+      }
+      let city = cities.find(city => city.name === cityName);
+      return city.id;
+    } catch (error) {
+      console.error("Error getting city id:", error);
+      return null;
+    }
+  };
+
   const fetchCityData = async (slug) => {
     try {
+      console.log(slug);
       const response = await fetch(`http://52.2.71.125:8000/cities/${slug}`);
       if (!response.ok) {
         throw new Error('Failed to fetch city data');
@@ -22,7 +41,7 @@
 
   const fetchEventsData = async (cityId) => {
     try {
-      const response = await fetch(`http://52.2.71.125:8000/events/?city_id=${cityId}`);
+      const response = await fetch(`http://52.2.71.125:8000/cities/${cityId}/events`);
       if (!response.ok) {
         throw new Error('Failed to fetch events data');
       }
@@ -50,15 +69,17 @@
   };
 
   onMount(async () => {
-    const slug = window.location.pathname.split('/').pop();
-    const cityData = await fetchCityData(slug);
+    const slug = decodeURIComponent(window.location.pathname.split('/').pop());
+    console.log(slug)
+    const cityId = await getCityIdByName(slug);
+    const cityData = await fetchCityData(cityId);
     const eventsData = await fetchEventsData(cityData.id);
 
     city = cityData;
     hotEvents.set(eventsData);
   });
 
-  let newEvent = {
+  $:newEvent = {
     name: '',
     image: 'https://via.placeholder.com/150',
     sector: '',
@@ -97,16 +118,6 @@
 <div class="main-container">
   {#if city && city.name}
     <h1 class="mb-10 pl-10">{city.name}</h1>
-    <div class="main-info flex flex-col md:flex-row">
-      <div class="px-10 py-16 mx-auto sm:max-w-xl md:max-w-full">
-        <div class="grid gap-24 row-gap-8 lg:grid-cols-5">
-          <div class="grid gap-8 lg:col-span-2" in:fly={{ x: -100, duration: 1000 }}>
-          </div>
-        </div>
-      </div>
-    </div>
-  {:else}
-    <p>Loading...</p>
   {/if}
   <div class="hot-trends w-full md:w-auto">
     <div class="hot-events" in:fly={{ delay: 500, duration: 1000, y: 100 }}>

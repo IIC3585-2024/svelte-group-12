@@ -1,4 +1,6 @@
 <script>
+// @ts-nocheck
+
   import { onMount } from 'svelte';
   import { writable } from 'svelte/store';
   import Map from '$lib/Map.svelte';
@@ -9,7 +11,32 @@
 
   const event = writable({});
   const indicators = writable([]);
-  const descriptions = writable([]);
+  const descriptions = [
+    {
+      id: 0,
+      name: "Duración",
+      value: "2 horas",
+      icon: "clock"
+    },
+    {
+      id: 1,
+      name: "Precio",
+      value: "Gratis",
+      icon: "coin"
+    },
+    {
+      id: 2,
+      name: "Horario",
+      value: "9:00 - 18:00, Todos los días",
+      icon: "calendar"
+    },
+    {
+      id: 3,
+      name: "Recomendaciones",
+      value: "Llevar agua",
+      icon: "thumbs-up"
+    }
+  ]
   const comments = writable([]);
   const openDescriptions = writable(new Set());
   const newComment = writable({ message: '', rating: 0 });
@@ -24,6 +51,22 @@
     } catch (error) {
       console.error("Error loading event data:", error);
       return {};
+    }
+  };
+
+  const fetchIndicatorsData = async (eventId) => {
+    try {
+      const res = await fetch(`http://52.2.71.125:8000/indicators/`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const indicators = await res.json();
+      return indicators
+    } catch (error) {
+      console.error("Error fetching indicators:", error);
+      return [];
     }
   };
 
@@ -54,13 +97,8 @@
           'Content-Type': 'application/json',
         },
       });
-      // Filtramos los comentarios que tengan este event_id
       const comments = await res.json();
       return comments.filter((comment) => comment.event_id === id);
-      if (!res.ok) {
-        throw new Error('Failed to fetch comments');
-      }
-      return await res.json();
     } catch (error) {
       console.error("Error fetching comments:", error);
       return [];
@@ -70,11 +108,11 @@
   onMount(async () => {
     const id = window.location.pathname.split('/').pop();
     const data = await fetchEventData(id);
+    const indicatorsData = await fetchIndicatorsData(id);
     const commentsData = await fetchComments(id);
 
     event.set(data);
-    indicators.set(data.indicators || []);
-    descriptions.set(data.descriptions || []);
+    indicators.set(indicatorsData || []);
     comments.set(commentsData || []);
   });
 
@@ -140,7 +178,7 @@
                 {/each}
               </div>
               <p class="block font-sans text-base antialiased font-medium leading-relaxed text-blue-gray-500">
-                {indicator.reviews} Reviews
+                100 Reviews
               </p>
             </div>
           </div>
@@ -150,7 +188,7 @@
     <div class="descriptions" in:fly={{ y:100, delay: 500, duration: 1000 }}>
       <div class="descriptions-content">
         <h2 class="p-4">Información de utilidad</h2>
-        {#each $descriptions as description (description.id)}
+        {#each descriptions as description (description.id)}
           <div class="description-item" animate:flip={{ duration: 200, easing: quintOut }}>
             <button class="accordion" on:click={() => toggleDescription(description.id)}>
               <div class="accordion-title">
@@ -173,31 +211,60 @@
       </div>
     </div>
   </div>
-  <div class="Map_and_info_container" in:fade={{ duration: 1000 }}>
+  <div class="flex w-full justify-center py-10" in:fade={{ duration: 1000 }}>
     <div class="map-info">
       <div class="map-title">
         <h1>¿Cómo llegar al lugar?</h1>
-        <p>Te tenemos algunos datos</p>
+        <p>te tenemos algunos datos</p>
       </div>
       <div class="map-description">
-        <p>Dirección: {$event.address}</p>
-        <p>Telefono de Contacto: {$event.phone}</p>
-        <p>Mail de contacto: {$event.email}</p>
-        <p>Descripción del Evento: {$event.additional_info}</p>
+        <p>{$event.address}</p>
+        <p>{$event.phone}</p>
+        <p>{$event.email}</p>
+        <p>{$event.additional}</p>
       </div>
     </div>
     <Map lng={-70.633156} lat={-33.424427} zoom={14}/>
   </div>
-  <div class="comments-container mt-10">
-    <h2 class="p-4">Comentarios</h2>
-    <div class="comments-content">
-      {#each $comments as comment}
-        <div class="comment-item">
-          <p class="block font-sans text-base font-medium leading-relaxed antialiased text-blue-gray-900">{comment.message}</p>
-          <p class="block font-sans text-base font-medium leading-relaxed antialiased text-blue-gray-500">- {comment.name}</p>
+  <div class="flex w-full mb-20" in:fly={{ x:-100, delay:1000, duration: 1000 }}>
+    {#each $comments as comment}
+      <div class="flex flex-col w-full items-center px-8 text-center">
+        <h2 class="w-1/2 mb-6 block font-sans text-xl sm:text-xs font-small leading-[1.3] tracking-normal text-blue-gray-900 antialiased">
+          "{comment.message}"
+        </h2>
+        <img
+          src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=2940&amp;q=80"
+          alt="profile_image"
+          class="relative inline-block h-10 w-10 rounded-full object-cover object-center "
+        />
+        <h6 class="block mt-4 font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit">
+          Nombre genérico
+        </h6>
+        <p class="block mb-4 font-sans text-base antialiased font-normal leading-relaxed text-gray-700">
+          Rol genérico
+        </p>
+        <div class="inline-flex items-center">
+          {#each Array.from({ length: comment.rating }) as _, i}
+            <span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="w-6 h-6 text-yellow-700 cursor-pointer"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+            </span>
+          {/each}
         </div>
-      {/each}
-    </div>
+      </div>
+    {/each}
+  </div>
+  <div class="comments-container mt-10">
     <form on:submit={handleSubmit}>
       <div class="form-group">
         <label for="message">Comentario:</label>
@@ -207,7 +274,7 @@
         <label for="rating">Rating:</label>
         <input type="number" id="rating" bind:value={$newComment.rating} min="0" max="5" required />
       </div>
-      <button type="submit">Enviar</button>
+      <button class="submit-button" type="submit">Enviar</button>
     </form>
   </div>
 </div>
@@ -321,7 +388,7 @@
     border: 1px solid #ccc;
     border-radius: 5px;
   }
-  button {
+  .submit-button {
     padding: 25px 30px;
     background-color: #007bff;
     border: none;
@@ -329,7 +396,7 @@
     border-radius: 5px;
     cursor: pointer;
   }
-  button:hover {
+  .submit-button:hover {
     background-color: #0056b3;
   }
   @media (min-width: 768px) {

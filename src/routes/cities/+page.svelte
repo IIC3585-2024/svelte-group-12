@@ -1,4 +1,5 @@
 <script>
+  //@ts-nocheck
   import { goto } from '$app/navigation';
   import { fly } from 'svelte/transition';
   import { onMount } from 'svelte';
@@ -34,13 +35,13 @@
   function handleSubmit() {
     const city = $options.find(city => city.name.toLowerCase() === searchValue.toLowerCase());
     if (city) {
-      goto(`/cities/${city.id}`);
+      goto(`/cities/${city.name}`);
     }
   }
 
   function matchesSearchValue(option) {
-    const regex = new RegExp(searchValue, 'ig'); // Crea una regex a partir de searchValue
-    return regex.test(option.name); // Prueba si la opción coincide con la regex
+    const regex = new RegExp(searchValue, 'ig');
+    return regex.test(option.name);
   }
 
   async function addCity() {
