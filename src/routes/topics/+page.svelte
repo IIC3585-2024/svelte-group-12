@@ -10,10 +10,10 @@
   let images = [
     { src: 'https://picsum.photos/200/300', alt: 'Sunset in the mountains', category: 'Foro' },
     { src: 'https://picsum.photos/200/301', alt: 'Sunset in the mountains', category: 'Ciudades' },
-    { src: 'https://picsum.photos/200/302', alt: 'Sunset in the mountains', category: 'Your title here' },
-    { src: 'https://picsum.photos/200/303', alt: 'Sunset in the mountains', category: 'Your title here' },
-    { src: 'https://picsum.photos/200/304', alt: 'Sunset in the mountains', category: 'Your title here' },
-    { src: 'https://picsum.photos/200/305', alt: 'Sunset in the mountains', category: 'Your title here' }
+    { src: 'https://picsum.photos/200/302', alt: 'Sunset in the mountains', category: 'Pronto...' },
+    { src: 'https://picsum.photos/200/303', alt: 'Sunset in the mountains', category: 'Pronto...' },
+    { src: 'https://picsum.photos/200/304', alt: 'Sunset in the mountains', category: 'Pronto...' },
+    { src: 'https://picsum.photos/200/305', alt: 'Sunset in the mountains', category: 'Pronto...' }
   ];
 
   let isHovered = writable(Array(images.length).fill(false));
@@ -30,7 +30,7 @@
 	</div>
 	<div class="grid">
 		{#each images as image, i}
-			<a href={`/cities`}>
+				<a href={i == 0 ? '/blogs' : '/cities'}>	
 				<div role="button" tabindex="0" class="relative rounded overflow-hidden shadow-lg" style="max-width: 12em; max-height: 13em"
 					on:mouseenter={() => $isHovered[i] = true} 
 					on:focus={() => $isHovered[i] = true}
