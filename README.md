@@ -33,6 +33,7 @@ incluir dentro de los datos de la API la latitud y longitud de los eventos, por 
 el Cerro Metropolitano.
 - Hay algunas ciudades del Home sin eventos: Valparíso, Curicó.
 - La sección de INFORMACION de los eventos no es específica de cada evento, es consumida por la API, pero no se utiliza para todos los eventos. No así la sección de información al costado del mapa, esa sí corresponde al evento en particular.
+- Se utilizó TailwindCSS para darle más estilo a la página, se usaron fuentes como [Material Tailwind](https://www.material-tailwind.com/) o [FreeFont](https://freefrontend.com/tailwind-comments/) como inspiración.
 
 ## Vistas
 - `/`: las imágenes al clickearlas llevan al link con la información de los eventos de la ciudad, además te da la posibilidad de crear un evento para dicha ciudad.
